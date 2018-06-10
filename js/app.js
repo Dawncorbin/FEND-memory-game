@@ -2,6 +2,7 @@
  * Create a list that holds all of your cards
  */
 
+  //loop to add event listeners to each card
 
 /*
  * Display the cards on the page
@@ -27,8 +28,10 @@ function shuffle(array) {
 
 
 /*
- * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
+ * set up the event listener for a card. If a card is clicked:*/
+
+
+ /*  - display the card's symbol (put this functionality in another function that you call from this one)
  *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
  *  - if the list already has another card, check to see if the two cards match
  *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
@@ -36,3 +39,11 @@ function shuffle(array) {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
+ //open-show cards
+  let allCards = document.querySelectorAll('.card');
+
+  allCards.forEach(function (card) {
+      card.addEventListener('click', function (e) {
+          card.classList.add('open', 'show');
+      });
+  });
