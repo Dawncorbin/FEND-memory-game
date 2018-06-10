@@ -39,11 +39,22 @@ function shuffle(array) {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
- //open-show cards
+ //open-show 2 cards at a time - if no match, they flip back over
   let allCards = document.querySelectorAll('.card');
+  let openCards = [];
 
   allCards.forEach(function (card) {
       card.addEventListener('click', function (e) {
+          openCards.push (card);
           card.classList.add('open', 'show');
+
+          if(openCards.length == 2) {
+              setTimeout (function () {
+                openCards.forEach (function (card) {
+                  card.classList.remove ('open', 'show');
+                });
+                openCards = [];
+              }, 1000);
+      }
       });
   });
