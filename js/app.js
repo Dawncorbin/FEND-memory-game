@@ -1,6 +1,19 @@
 /*
  * Create a list that holds all of your cards
  */
+ let cards = ['fa-diamond', 'fa-diamond',
+              'fa-paper-plane-o', 'fa-paper-plane-o',
+              'fa-anchor', 'fa-anchor',
+              'fa-bolt', 'fa-bolt',
+              'fa-cube', 'fa-cube',
+              'fa-leaf', 'fa-leaf',
+              'fa-bicycle', 'fa-bicycle',
+              'fa-bomb', 'fa-bomb',
+            ];
+
+  function generateCard(card) {
+      return `<li class = "card"><i class = "fa ${card}"></i></li>`;
+  }
 
   //loop to add event listeners to each card
 
@@ -50,6 +63,11 @@ function shuffle(array) {
           openCards.push (card);
           card.classList.add('open', 'show');
 
+          //Check if they matched
+
+
+
+          //If cards don't match - go away
           if(openCards.length == 2) {
               setTimeout (function () {
                 openCards.forEach (function (card) {
