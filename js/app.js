@@ -12,7 +12,7 @@
             ];
 
   function generateCard(card) {
-      return `<li class = "card"><i class = "fa ${card}"></i></li>`;
+      return `<li class = "card" data-card= "${card}"><i class = "fa ${card}"></i></li>`;
   }
 
   //loop to add event listeners to each card
@@ -54,7 +54,7 @@ function shuffle(array) {
  */
 
   function initGame() {
-      let deck = document.querySelector ('deck');
+      let deck = document.querySelector ('.deck');
       let cardHTML = shuffle(cards).map (function(card) {
           return generateCard(card);
       });
@@ -75,19 +75,26 @@ function shuffle(array) {
           openCards.push (card);
           card.classList.add('open', 'show');
 
-          //Check if they matched
 
-
-
-          //If cards don't match - go away
           if(openCards.length == 2) {
-              setTimeout (function () {
-                openCards.forEach (function (card) {
-                  card.classList.remove ('open', 'show');
-                });
+              if (openCards [0].dataset.card == openCards[1].dataset.card) {
+                  openCards [0].classList.add('match');
+                  openCards [0].classList.add('open');
+                  openCards [0].classList.add('show');
 
-                openCards = [];
-              }, 1000);
+                  openCards [1].classList.add('match');
+                  openCards [1].classList.add('open');
+                  openCards [1].classList.add('show');
+              }else{
+            //if no match, hide
+                    setTimeout (function () {
+                      openCards.forEach (function (card) {
+                        card.classList.remove ('open', 'show');
+                      });
+
+                    openCards = [];
+                  }, 1000);
+                }
             }
           }
       });
