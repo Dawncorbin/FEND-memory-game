@@ -1,7 +1,7 @@
 /*
  * Create a list that holds all of your cards
  */
- let cards = ['fa-diamond', 'fa-diamond',
+    const cards = ['fa-diamond', 'fa-diamond',
               'fa-paper-plane-o', 'fa-paper-plane-o',
               'fa-anchor', 'fa-anchor',
               'fa-bolt', 'fa-bolt',
@@ -10,7 +10,7 @@
               'fa-bicycle', 'fa-bicycle',
               'fa-bomb', 'fa-bomb',
             ];
-
+//progamatically generate card HTML
   function generateCard(card) {
       return `<li class = "card" data-card= "${card}"><i class = "fa ${card}"></i></li>`;
   }
@@ -53,6 +53,7 @@ function shuffle(array) {
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
+//shuffles deck
   function initGame() {
       let deck = document.querySelector ('.deck');
       let cardHTML = shuffle(cards).map (function(card) {
@@ -75,7 +76,7 @@ function shuffle(array) {
           openCards.push (card);
           card.classList.add('open', 'show');
 
-
+          //if match
           if(openCards.length == 2) {
               if (openCards [0].dataset.card == openCards[1].dataset.card) {
                   openCards [0].classList.add('match');
@@ -85,6 +86,8 @@ function shuffle(array) {
                   openCards [1].classList.add('match');
                   openCards [1].classList.add('open');
                   openCards [1].classList.add('show');
+
+                  openCards = [];
               }else{
             //if no match, hide
                     setTimeout (function () {
@@ -99,3 +102,25 @@ function shuffle(array) {
           }
       });
   });
+
+  //starts seconds and minutes timer
+    function startTimer() {
+
+        timeElapsed = window.setInterval(function () {
+          timer.innterHTML = minutes + " mins "+ seconds + " secs";
+              seconds++;
+                if(seconds == 60) {
+                  minutes++;
+                  seconds = 0;
+                }
+        }, 1000);
+    }
+
+    function resetTimer() {
+
+      clearInterval(timeElapsed);
+        minutes = 0;
+        seconds = 0;
+        timer = document.querySelector('.timer');
+            timer.innerHTML = minutes + " mins "+ seconds + " secs";
+    }
