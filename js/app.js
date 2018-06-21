@@ -14,6 +14,13 @@
 
     const deck = document.querySelector('.deck');
 
+    //move counter
+    const moveCounter = document.querySelector('.moves');
+    let moves = 0;
+
+    let matches = document.getElementsByClassName("match");
+
+
   //loop to add event listeners to each card
 
 /*
@@ -64,6 +71,12 @@ cards.sort(function () {
 
 generateCard();
 
+//refresh game
+const refresh = document.querySelector('.restart');
+  refresh.addEventListener('click', function restart() {
+      window.location.reload(false);
+  });
+
 //shuffle new cards
 shuffleDeck(cards);
 
@@ -102,10 +115,10 @@ let timer;
       document.querySelector('.timer-output').innerHTML = "0" + min + ":" + sec;
   }
 
-  
+
 //the following was helped along courtesy of Mike Wales webinar
 
-//compare mates
+//compare matches
 let allCards = document.querySelectorAll('.card');
 let openCards = [];
 let matched = [];
@@ -152,6 +165,39 @@ let matched = [];
       });
   });
 
+  //the following is from Matthew Cranford's walkthrough - https://matthewcranford.com/memory-game-walkthrough-part-5-moves-stars/
+  //star count 
+  let stars = document.querySelectorAll('.stars.li');
+
+  let srat Count = 3
+
+  function startCounter() {
+      for (let a= 0; a < 20; a++) {
+        if (moves > 20) {
+
+          for (star of stars) {
+            stars[2].style.display = 'none';
+            starCount = 0;
+
+          }
+
+        }else if (moves > 15) {
+            for (star of stars) {
+              stars[1].style.display = 'none';
+              starCount = 1;
+
+          }
+
+        }else if (moves > 10) {
+            for (star of stars) {
+                stars[0].style.display = 'none';
+                starCount = 2;
+
+            }
+        }
+      }
+  }
+
 //shuffles deck
   /*function initGame() {
       let deck = document.querySelector ('.deck');
@@ -174,14 +220,3 @@ let matched = [];
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
-
-
-//click counter, starts timer after first 'play'
-  function clickCount() {
-      if (clicks === 0) {
-        startTimer();
-        clicks++;
-      } else {
-        clicks++;
-      }
-  }
