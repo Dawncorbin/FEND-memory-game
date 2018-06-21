@@ -58,7 +58,7 @@ cards.sort(function () {
         let info = document.createElement("i");
 
         list.appendChild(info);
-        infor.className = `fa ${cards[i]} "data-set=" ${cards}`;
+        info.className = `fa ${cards[i]} "data-set=" ${cards}`;
     }
   }
 
@@ -67,6 +67,42 @@ generateCard();
 //shuffle new cards
 shuffleDeck(cards);
 
+//the following was helped along courtest of Chris N slack post
+//timer
+let sec = 0;
+let min = 0;
+let timer;
+
+  deck.addEventListener('click', function startTimer() {
+    timer = setInterval(insertTime, 1500);
+});
+
+  function stopTimer() {
+      clearInterval (timer);
+      sec = 0;
+      min = 0;
+
+  }
+
+  function insertTime() {
+    sec++;
+
+      if (sec <10) {
+          sec = `0${sec}`;
+
+      }
+
+      if (sec >= 60) {
+        min++;
+        sec = "00";
+
+      }
+
+      //display time
+      document.querySelector('.timer-output').innerHTML = "0" + min + ":" + sec;
+  }
+
+  
 //the following was helped along courtesy of Mike Wales webinar
 
 //compare mates
@@ -139,22 +175,6 @@ let matched = [];
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
-//removes first and second stars based on move count after 12 & 16 Moves
-  function starRating () {
-      if (moves > 12 && moves < 16) {
-        first.style.visibility = 'hidden';
-
-      } else if (moves > 16) {
-        second.style.visibility = 'hidden';
-      }
-  }
-
-//move counter
-  function moveCount() {
-      moves++;
-      moveCounter.innerHTML = moves;
-        starRating();
-    }
 
 //click counter, starts timer after first 'play'
   function clickCount() {
