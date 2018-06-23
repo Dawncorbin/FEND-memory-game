@@ -19,8 +19,51 @@
     let moves = 0;
 
     let matches = document.getElementsByClassName("match");
+    let modal = document.getElementById("end-modal");
+    let modalText = document.getElementById("end-text");
 
+    let running;
 
+    //the following was helped along courtest of Chris N slack post
+    //timer
+    let sec = 0;
+    let min = 0;
+    let timer;
+
+      deck.addEventListener('click', function startTimer() {
+        timer = setInterval(insertTime, 1000);
+    });
+
+      function stopTimer() {
+          clearInterval (timer);
+          sec = 0;
+          min = 0;
+
+      }
+
+      function insertTime() {
+        sec++;
+
+          if (sec < 10) {
+              sec = `0${sec}`;
+
+          }
+
+          if (sec >= 60) {
+            min++;
+            sec = "00";
+
+          }
+
+          //display time
+          document.querySelector('.timer-output').innerHTML = "0" + min + ":" + sec;
+      }
+
+      //refresh game
+      const refresh = document.querySelector('.restart');
+        refresh.addEventListener('click', function restart() {
+            window.location.reload(false);
+        });
   //loop to add event listeners to each card
 
 /*
@@ -31,7 +74,7 @@
  */
 //referenced this shuffle function by https://css-tricks.com/snippets/javascript/shuffle-array
 // Shuffle function from http://stackoverflow.com/a/2450976
-function shuffleDeck(o) {
+function shuffle(o) {
       for (var j, x, i = o.length; i; j = parseInt(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
       return o;
 };
@@ -55,9 +98,9 @@ cards.sort(function () {
 }
 */
 
-//create allCards
+//create all Cards
   function generateCard() {
-    for (let i =o; i < cards.length; i++) {
+    for (let i = 0; i < cards.length; i++) {
         let list = document.createElement("li");
         deck.appendChild(list);
         list.className = "card";
@@ -71,51 +114,19 @@ cards.sort(function () {
 
 generateCard();
 
-//refresh game
-const refresh = document.querySelector('.restart');
-  refresh.addEventListener('click', function restart() {
-      window.location.reload(false);
-  });
-
 //shuffle new cards
-shuffleDeck(cards);
+//shuffle(cards);
+//shuffles deck
+  /*function initGame() {
+      let deck = document.querySelector ('.deck');
+      let cardHTML = shuffle(cards).map (function(card) {
+         return generateCard(card);
+      });
 
-//the following was helped along courtest of Chris N slack post
-//timer
-let sec = 0;
-let min = 0;
-let timer;
-
-  deck.addEventListener('click', function startTimer() {
-    timer = setInterval(insertTime, 1500);
-});
-
-  function stopTimer() {
-      clearInterval (timer);
-      sec = 0;
-      min = 0;
-
+        deck.innerHTML = cardHTML.join('');
   }
-
-  function insertTime() {
-    sec++;
-
-      if (sec <10) {
-          sec = `0${sec}`;
-
-      }
-
-      if (sec >= 60) {
-        min++;
-        sec = "00";
-
-      }
-
-      //display time
-      document.querySelector('.timer-output').innerHTML = "0" + min + ":" + sec;
-  }
-
-
+*/
+//initGame();
 //the following was helped along courtesy of Mike Wales webinar
 
 //compare matches
@@ -157,21 +168,21 @@ let matched = [];
                       moveCounter.innerHTML = moves;
 
                   }
-                  startCounter();
+                  starCounter();
                 }
-                gameOver();
+                  gameOver();
 
           }
       });
   });
 
   //the following is from Matthew Cranford's walkthrough - https://matthewcranford.com/memory-game-walkthrough-part-5-moves-stars/
-  //star count 
+  //star count
   let stars = document.querySelectorAll('.stars.li');
 
-  let srat Count = 3
+  let starCount = 3
 
-  function startCounter() {
+  function starCounter() {
       for (let a= 0; a < 20; a++) {
         if (moves > 20) {
 
@@ -197,16 +208,22 @@ let matched = [];
         }
       }
   }
+//if all matches are found - a modal opens and timer stops
 
-//shuffles deck
-  /*function initGame() {
-      let deck = document.querySelector ('.deck');
-      let cardHTML = shuffle(cards).map (function(card) {
-          return generateCard(card);
-      });
+//pop up modal
+function gameOver() {
+    if (matches.length === cards.length) {
+      clearInterval(running);
+      modal.style.display = "block";
+      if (starCount >= 2) {
 
-        deck.innerHTML = cardHTML.join('');
-  }*/
+          modalText.innerText = `Congratulations! You finished the game in ${moves} moves in ${min} minutes and ${sec} seconds. You've earned ${starCount} stars! What would you like to do next?`;
+      }else{
+          modalText.innerText = `Congratulations! You finished the game in ${moves} moves in ${min} minutes and ${sec} seconds. You've earned ${starCount} star! What would you like to do next?`;
+      }
+    }
+}
+
 
 /*
  * set up the event listener for a card. If a card is clicked:*/
