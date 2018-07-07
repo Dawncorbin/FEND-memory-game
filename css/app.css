@@ -107,3 +107,36 @@ h1 {
     float: right;
     cursor: pointer;
 }
+
+/*
+ * Styles for the end of ame modal
+ */
+
+ .modal{
+     display:none;
+     position:fixed;
+
+     z-index:1;
+     left:0;
+     top:0;
+     height:100%;
+     width:100%;
+ }
+
+
+.modal-content{
+    padding:15px;
+    margin 20% auto;
+    width 50%;
+    background-color: lightcyan;
+}
+
+.modal-content h1{
+    text-align: center;
+
+}
+
+.modalBtn{
+    background-color: #afceb2;
+    cursor:pointer;
+}
